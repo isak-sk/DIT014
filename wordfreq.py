@@ -1,3 +1,4 @@
+# tokenize function
 def tokenize(lines):
     words = []
     for line in lines:

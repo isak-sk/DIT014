@@ -64,18 +64,32 @@ def countWords(words, stopWords):
             else:
                 dict[word] += 1
 
-    print(dict)
+    return dict
+
+def printTopMost(dict, n):
+
+    dict = {k: v for k, v in sorted(dict.items(), key=lambda item: item[1], reverse=True)}
+
+
+    
+
+
+
+
+
 
 
 def main():
 
-    list = ['Hello goodbye world!', 'hello What goodbye is up with you', '10  Sweet  Apple  Tarts.']
+    list = ['Hello goodbye yo world!', 'hello What yo goodbye is up with you', '10 yo what yo Sweet  Apple  Tarts.']
     stopwords = ['What', 'is', 'Hello']
 
     words = tokenize(list)
 
-    countWords(words, stopwords)
+    dict = countWords(words, stopwords)
 
+
+    printTopMost(dict, 3)
 
 
 main()

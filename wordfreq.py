@@ -71,7 +71,8 @@ def printTopMost(dict, n):
     dict = {k: v for k, v in sorted(dict.items(), key=lambda item: item[1], reverse=True)}
 
 
-    
+    for k, v in list(dict.items())[:n]:
+        print(k,v)
 
 
 

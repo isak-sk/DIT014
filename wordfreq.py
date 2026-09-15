@@ -48,17 +48,33 @@ def tokenize(lines):
     return words
 
 def countWords(words, stopWords):
-    pass
+
+    # Lower all words in stopwords
+    stopWords = [x.lower() for  x in stopWords]
+
+    dict = {}
+
+    for word in words:
+
+        if word not in stopWords:
+
+            if word not in dict:
+                dict[word] = 1
+
+            else:
+                dict[word] += 1
+
+    print(dict)
 
 
 def main():
 
-    list = ['Hello world!', 'What is up with you', '10  Sweet  Apple  Tarts.']
+    list = ['Hello goodbye world!', 'hello What goodbye is up with you', '10  Sweet  Apple  Tarts.']
+    stopwords = ['What', 'is', 'Hello']
 
     words = tokenize(list)
 
-    print(words)
-
+    countWords(words, stopwords)
 
 
 

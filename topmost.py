@@ -4,10 +4,13 @@ import urllib.request
 
 
 def main():
-
-    stop_path = sys.argv[1]
-    file_path = sys.argv[2]
-    top_stop = sys.argv[3]
+    try:
+        stop_path = sys.argv[1]
+        file_path = sys.argv[2]
+        top_stop = sys.argv[3]
+    except Exception as e:
+        print("Couldnt get positional input argument: ", e)
+        exit()
 
     try:
         if "http" not in sys.argv[2]:

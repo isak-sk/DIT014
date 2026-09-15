@@ -9,11 +9,15 @@ def main():
     file_path = sys.argv[2]
     top_stop = sys.argv[3]
 
-    if "http" not in sys.argv[2]:
-        input = open(file_path)
-    else:
-        response = urllib.request.urlopen(sys.argv[2]) 
-        input = response.read().decode("utf8").splitlines()
+    try:
+        if "http" not in sys.argv[2]:
+            input = open(file_path)
+        else:
+            response = urllib.request.urlopen(sys.argv[2])
+            input = response.read().decode("utf8").splitlines()
+    except Exception as e:
+        print("Couldnt load input file: ", e)
+        exit()
 
     try:
         top_stop = int(top_stop)

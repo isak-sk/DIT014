@@ -2,31 +2,57 @@
 def tokenize(lines):
     words = []
 
+
     for line in lines:
-        start = 0
 
-        while start < len(line):
-            x = line[start]
-            x = x.lower()
 
-            if x.isalpha():
-                typ = "Letter"
+        current_word = ""
+        current_type = None
+        i = 0
 
-            elif x.isdigit():
-                typ = "Number"
 
-            if not x.isspace():
-                print(line[start], "is a", typ)
+        while i < len(line):
+            char = line[i]
 
-            start += 1
+            if char.isspace():
+                if current_word != "":
+                    words.append(current_word)
+                    current_word = ""
+                    current_type = None
+            else:
+                if char.isalpha():
+                    type = "letter"
+                    char = char.lower()
+                elif char.isdigit():
+                    type = "digit"
+                else:
+                    type = "other"
+
+                if current_word == "":
+                    current_word = char
+                    current_type = type
+                elif type == current_type and type in ("letter", "digit"):
+                    current_word += char
+                else:
+                    words.append(current_word)
+                    current_word = char
+                    current_type = type
+
+            i += 1
+
+
+        if current_word != "":
+            words.append(current_word)
+
 
     return words
 
-
+def countWords(words, stopWords):
+    pass
 
 
 def main():
-    print(tokenize(['apple', 'pie', '123']))
+    print(tokenize(['10  Sweet  Apple  Tarts.']))
 
 
 

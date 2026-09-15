@@ -73,24 +73,3 @@ def printTopMost(dict, n):
 
     for k, v in list(dict.items())[:n]:
         print(k.ljust(20), v)
-
-
-
-
-
-
-
-def main():
-
-    list = ['Hello goodbye yo world!', 'hello What yo goodbye is up with you', '10 yo what yo Sweet  Apple  Tarts.']
-    stopwords = ['What', 'is', 'Hello']
-
-    words = tokenize(list)
-
-    dict = countWords(words, stopwords)
-
-
-    printTopMost(dict, 3)
-
-
-main()

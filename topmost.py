@@ -9,13 +9,19 @@ def main():
     file_path = sys.argv[2]
     top_stop = sys.argv[3]
 
-    top_stop = int(top_stop)
+    try:
+        top_stop = int(top_stop)
+    except Exception as e:
+        print("N must be a integer: ", e)
+        exit()
 
-    print(stop_path, file_path, top_stop)
 
-
-    input = open(file_path)
-    stop = open(stop_path)
+    try:
+        input = open(file_path)
+        stop = open(stop_path)
+    except Exception as e:
+        print("Couldnt open file from argument line", e)
+        exit()
 
     words = wordfreq.tokenize(input)
 

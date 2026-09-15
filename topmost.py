@@ -27,7 +27,8 @@ def main():
 
 
     try:
-        stop = open(stop_path)
+        with open(stop_path, 'r') as f:
+            stop = list(map(str.rstrip, f))
     except Exception as e:
         print("Couldnt open file from argument line", e)
         exit()

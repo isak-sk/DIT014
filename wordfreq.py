@@ -72,4 +72,4 @@ def printTopMost(dict, n):
 
 
     for k, v in list(dict.items())[:n]:
-        print(k.ljust(20), v)
+        print(k.ljust(20) + str(v).rjust(5))

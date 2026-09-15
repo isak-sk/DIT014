@@ -52,7 +52,13 @@ def countWords(words, stopWords):
 
 
 def main():
-    print(tokenize(['10  Sweet  Apple  Tarts.']))
+
+    list = ['Hello world!', 'What is up with you', '10  Sweet  Apple  Tarts.']
+
+    words = tokenize(list)
+
+    print(words)
+
 
 
 

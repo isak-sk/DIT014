@@ -67,9 +67,10 @@ def countWords(words, stopWords):
     return dict
 
 def printTopMost(dict, n):
-
+    
+    # Sort the values (count) of the dictionary in descending order
     dict = {k: v for k, v in sorted(dict.items(), key=lambda item: item[1], reverse=True)}
 
-
+    # Print the top n key value pairs
     for k, v in list(dict.items())[:n]:
         print(k.ljust(20) + str(v).rjust(5))

@@ -12,8 +12,8 @@ class Vec:
 
         Initialize a new vector at given coords x and y
         """
-        self.x = x
-        self.y = y
+        self.x: int | float = x
+        self.y: int | float = y
         self.vector = [x, y]
 
 
@@ -46,8 +46,8 @@ class Vec:
         :param other: Vector to be added to self
         :return: New vector sum
         """
-        x_sum = self.x + other.x
-        y_sum = self.y + other.y
+        x_sum: int | float = self.x + other.x
+        y_sum: int | float = self.y + other.y
 
         added_vector = Vec(x_sum, y_sum)
 
@@ -60,8 +60,8 @@ class Vec:
         :param other: Vector to be subtracted from self
         :return: A new vector
         """
-        x_sub = self.x - other.x
-        y_sub = self.y - other.y
+        x_sub: int | float = self.x - other.x
+        y_sub: int | float = self.y - other.y
 
         subtracted_vector = Vec(x_sub, y_sub)
 
@@ -73,14 +73,14 @@ class Vec:
 
         :return: The euclidian form of self
         """
-        x_squared = self.x ** 2
-        y_squared = self.y ** 2
+        x_squared: int | float = self.x ** 2
+        y_squared: int | float = self.y ** 2
         euclidian_form = math.sqrt(x_squared + y_squared)
 
         return euclidian_form
 
 
-    def get_coords(self) -> tuple[int, int]:
+    def get_coords(self) -> tuple[int | float, int | float]:
         """
         Returns the coordinates of self
         :return: tuple(x,y)
@@ -98,8 +98,8 @@ def dot(u: Vec, v: Vec) -> float | int:
     :return: The dot product
     """
 
-    x_prod = u.x * v.x
-    y_prod = u.y * v.y
+    x_prod: int | float = u.x * v.x
+    y_prod: int | float = u.y * v.y
 
     dot_product = x_prod + y_prod
 

@@ -5,7 +5,7 @@ import math
 class Vec:
 
 
-    def __init__(self, x: int, y: int):
+    def __init__(self, x: int | float, y: int | float):
         """
         :param x:  x coordinate of the vector
         :param y:  y coordinate of the vector
@@ -25,21 +25,21 @@ class Vec:
 
         return f"({self.x},{self.y})"
 
-    def __rmul__(self, factor) -> Vec:
+    def __rmul__(self, factor: int | float) -> Vec:
         """
         :param factor: Factor at which to scale the vector
         :return: New scaled vector
 
         Return a new vector scaled by the given factor
         """
-        new_x: int = self.x * factor
-        new_y: int = self.y * factor
+        new_x: int | float = self.x * factor
+        new_y: int | float = self.y * factor
 
         scaled_vector = Vec(new_x, new_y)
 
         return scaled_vector
 
-    def __add__(self, other) -> Vec:
+    def __add__(self, other: Vec) -> Vec:
         """
         Return a new vector which is the addition of self and other
 
@@ -53,7 +53,7 @@ class Vec:
 
         return added_vector
 
-    def __sub__(self, other) -> Vec:
+    def __sub__(self, other: Vec) -> Vec:
         """
         Return a new vector which is the subtraction of self and other
 
@@ -89,7 +89,7 @@ class Vec:
 
 # Task (3/12): Additionally define a function dot(u, v)
 
-def dot(u, v) -> float:
+def dot(u: Vec, v: Vec) -> float | int:
     """
     Returns the dot product of two given Vectors
 

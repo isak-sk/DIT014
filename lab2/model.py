@@ -1,19 +1,21 @@
+from __future__ import annotations
 import math
+
 
 # Task (2/12): Define a class Vec
 
 class Vec:
 
 
-    def __init__(self, x: int | float, y: int | float):
+    def __init__(self, x: float, y: float):
         """
         :param x:  x coordinate of the vector
         :param y:  y coordinate of the vector
 
         Initialize a new vector at given coords x and y
         """
-        self.x: int | float = x
-        self.y: int | float = y
+        self.x: float = x
+        self.y: float = y
         self.vector = [x, y]
 
 
@@ -25,15 +27,15 @@ class Vec:
 
         return f"({self.x},{self.y})"
 
-    def __rmul__(self, factor: int | float) -> Vec:
+    def __rmul__(self, factor: float) -> Vec:
         """
         :param factor: Factor at which to scale the vector
         :return: New scaled vector
 
         Return a new vector scaled by the given factor
         """
-        new_x: int | float = self.x * factor
-        new_y: int | float = self.y * factor
+        new_x: float = self.x * factor
+        new_y: float = self.y * factor
 
         scaled_vector = Vec(new_x, new_y)
 
@@ -46,8 +48,8 @@ class Vec:
         :param other: Vector to be added to self
         :return: New vector sum
         """
-        x_sum: int | float = self.x + other.x
-        y_sum: int | float = self.y + other.y
+        x_sum: float = self.x + other.x
+        y_sum: float = self.y + other.y
 
         added_vector = Vec(x_sum, y_sum)
 
@@ -60,8 +62,8 @@ class Vec:
         :param other: Vector to be subtracted from self
         :return: A new vector
         """
-        x_sub: int | float = self.x - other.x
-        y_sub: int | float = self.y - other.y
+        x_sub: float = self.x - other.x
+        y_sub: float = self.y - other.y
 
         subtracted_vector = Vec(x_sub, y_sub)
 
@@ -73,14 +75,14 @@ class Vec:
 
         :return: The euclidian form of self
         """
-        x_squared: int | float = self.x ** 2
-        y_squared: int | float = self.y ** 2
+        x_squared: float = self.x ** 2
+        y_squared: float = self.y ** 2
         euclidian_form = math.sqrt(x_squared + y_squared)
 
         return euclidian_form
 
 
-    def get_coords(self) -> tuple[int | float, int | float]:
+    def get_coords(self) -> tuple[float, float]:
         """
         Returns the coordinates of self
         :return: tuple(x,y)
@@ -98,8 +100,8 @@ def dot(u: Vec, v: Vec) -> float | int:
     :return: The dot product
     """
 
-    x_prod: int | float = u.x * v.x
-    y_prod: int | float = u.y * v.y
+    x_prod: float = u.x * v.x
+    y_prod: float = u.y * v.y
 
     dot_product = x_prod + y_prod
 

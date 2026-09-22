@@ -109,6 +109,24 @@ def dot(u: Vec, v: Vec) -> float | int:
 
 # Task (4/12): Create a class Particle
 
+
+class Particle:
+    def __init__(self, mass: int, position: Vec, velocity: int, radius: float) -> None:
+
+        self.mass = mass
+        self.position = position
+        self.velocity = velocity
+        self.radius = radius
+
+    def inertial_move(self, df) -> Vec:
+        """
+        Modifies the position attribute according the formula:
+        (t1 - t0)v + x at time t1
+        """
+
+        pass
+
+
 # Task (5/12): In the Particle class, implement a method inertial_move(self, dt).
 
 # Task (6/12): In the Particle class, implement a method apply_force(self, dt, f)

@@ -4,9 +4,8 @@ import math
 
 # Task (2/12): Define a class Vec
 
+
 class Vec:
-
-
     def __init__(self, x: float, y: float):
         """
         :param x:  x coordinate of the vector
@@ -17,7 +16,6 @@ class Vec:
         self.x: float = x
         self.y: float = y
         self.vector = [x, y]
-
 
     def __repr__(self) -> str:
         """
@@ -75,12 +73,11 @@ class Vec:
 
         :return: The euclidian form of self
         """
-        x_squared: float = self.x ** 2
-        y_squared: float = self.y ** 2
+        x_squared: float = self.x**2
+        y_squared: float = self.y**2
         euclidian_form = math.sqrt(x_squared + y_squared)
 
         return euclidian_form
-
 
     def get_coords(self) -> tuple[float, float]:
         """
@@ -89,7 +86,9 @@ class Vec:
         """
         return self.x, self.y
 
+
 # Task (3/12): Additionally define a function dot(u, v)
+
 
 def dot(u: Vec, v: Vec) -> float | int:
     """
@@ -120,10 +119,6 @@ def dot(u: Vec, v: Vec) -> float | int:
 
 
 # Task (9/12): In the Particle class, add a method bounding_box(self)
-
-
-
-
 
 
 ###########################################

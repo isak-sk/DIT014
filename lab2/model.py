@@ -115,7 +115,6 @@ class Particle:
         self.position = position
         self.velocity = velocity
         self.radius = radius
-        self.x, self.y = position.get_coords()
 
 # Task (5/12): In the Particle class, implement a method inertial_move(self, dt).
     def inertial_move(self, dt: float) -> Vec:
@@ -152,14 +151,11 @@ class Particle:
         Computes the bounding box of a particle
         :return: pair of vectors
         """
-        top_left_x = self.x - self.radius
-        top_left_y = self.y + self.radius
 
-        bottom_right_x = self.x + self.radius
-        bottom_right_y = self.y - self.radius
+        x, y = self.position.get_coords()
 
-        upper_left_bound = Vec(top_left_x, top_left_y)
-        bottom_right_bound = Vec(bottom_right_x, bottom_right_y)
+        upper_left_bound = Vec(x - self.radius, y + self.radius)
+        bottom_right_bound = Vec(x + self.radius, y - self.radius)
 
         return upper_left_bound, bottom_right_bound
 

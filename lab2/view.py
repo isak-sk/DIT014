@@ -48,11 +48,11 @@ def move_oval_to(canvas, o, u1: Vec, u2: Vec):
 
 def create_oval(canvas, particle: Particle):
 
-    x, y = Particle.bounding_box(particle)
+    u1, u2 = Particle.bounding_box(particle)
 
     o = canvas.create_oval(80, 30, 140, 150, fill='purple')
 
-    move_oval_to(canvas, o, x, y)
+    move_oval_to(canvas, o, u1, u2)
 
     return o
 
@@ -60,15 +60,35 @@ def create_oval(canvas, particle: Particle):
 
 def simulation_loop(f, timestep, particles):
 
-    for particle in particles:
-        o = create_oval(canvas, particle)
-        particle.inertial_move(timestep)
-        vec1, vec2 = particle.bounding_box()
-        print("\n")
-        print(f"Created particle at {particle.position}")
-        move_oval_to(canvas, o, vec1, vec2)
-        print(f"Moved particle to {vec1}, {vec2}")
+    ovals = [create_oval(canvas, p) for p in particles]
+    canvas.update()
+
+    interval = 1 / 30
+    last_update = time.time()
+
+    while True:
+        f(timestep, particles)
+
+        for p in particles:
+            p.inertial_move(timestep)
+
+        now = time.time()
+        if now - last_update >= interval:
+            for p, o in zip(particles, ovals):
+                vec1, vec2 = p.bounding_box()
+                move_oval_to(canvas, o, vec1, vec2)
+            canvas.update()
+            last_update = now
 
 
-        canvas.update()
-        time.sleep(0.5)
+def gravity(dt, particles):
+    for p in particles:
+        p.apply_force(dt, Vec(0, -9.81 * p.mass))
+
+if __name__ == "__main__":
+
+    particles = [
+        Particle(1, Vec(-5, 5), Vec(2, 0), 0.5),
+        Particle(2, Vec(2, 0), Vec(-1, 6), 0.8),
+    ]
+    simulation_loop(gravity, 0.000001, particles)

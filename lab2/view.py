@@ -71,12 +71,14 @@ def create_oval(canvas, particle: Particle):
 def simulation_loop(f, timestep, particles):
 
     for particle in particles:
-        current = time.time()
-        print(current)
         o = create_oval(canvas, particle)
-        position = particle.inertial_move(timestep)
+        particle.inertial_move(timestep)
         vec1, vec2 = particle.bounding_box()
+        print("\n")
+        print(f"Created particle at {particle.position}")
         move_oval_to(canvas, o, vec1, vec2)
+        print(f"Moved particle to {vec1}, {vec2}")
+
 
         canvas.update()
         time.sleep(0.5)

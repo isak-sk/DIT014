@@ -1,13 +1,14 @@
 from model import *
 from tkinter import *
+import time
 
 # Task (7/12): Draw on canvas
 root = Tk()
 canvas = Canvas(root, bg="white", width=800, height=600)
 canvas.pack()
-o = canvas.create_oval(80, 30, 140, 150, fill='purple')
+#o = canvas.create_oval(80, 30, 140, 150, fill='purple')
 
-input()
+#input()
 
 # Task (8/12): Define a new function to_canvas_coords(canvas, x)
 def to_canvas_coords(canvas, u: Vec):
@@ -46,5 +47,26 @@ def move_oval_to(canvas, o, u1: Vec, u2: Vec):
     return oval
 
 # Task (11/12): Define a new function create_oval(canvas, particle)
+
+def create_oval(canvas, particle: Particle):
+
+    x, y = Particle.bounding_box(particle)
+
+    o = canvas.create_oval(80, 30, 140, 150, fill='purple')
+
+    move_oval_to(canvas, o, x, y)
+
+    return o
+
+
+### TEMPORARY TEST: REMOVE FOR SUBMISSION
+for n in range(5):
+  particle = Particle(0, Vec(n,n), Vec(0,0), 0.2)
+  create_oval(canvas, particle)
+  canvas.update()
+  time.sleep(1)
+
+
+
 
 # Task (12/12): Define a function simulation_loop(f, timestep, particles)

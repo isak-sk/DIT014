@@ -44,6 +44,19 @@ def to_canvas_coords(canvas, u):
 #######################################
 
 # Task (10/12): Define a new function move_oval_to(o, u1, u2)
+def move_oval_to(canvas, o, u1, u2):
+
+    cordinates_u1 = to_canvas_coord(canvas, u1)
+    cordinates_u2 = to_canvas_coord(canvas, u2)
+
+    x1 = cordinates_u1[0]
+    y1 = cordinates_u1[1]
+    x2 = cordinates_u2[0]
+    y2 = cordinates_u2[1]
+
+    o = canvas.coords(o, x1, y1, x2, y2)
+
+    return o
 
 # Task (11/12): Define a new function create_oval(canvas, particle)
 

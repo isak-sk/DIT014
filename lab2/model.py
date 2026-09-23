@@ -112,36 +112,27 @@ def dot(u: Vec, v: Vec) -> float | int:
 
 class Particle:
     def __init__(self, mass: int, position: Vec, velocity: int, radius: float) -> None:
-
         self.mass = mass
         self.position = position
         self.velocity = velocity
         self.radius = radius
+        self.x, self.y = position.get_coords()
 
-    def inertial_move(self, df) -> Vec:
+    def inertial_move(self, dt) -> Vec:
         """
         Modifies the position attribute according the formula:
         (t1 - t0)v + x at time t1
         """
-
+        v = self.velocity
+        distans_x = dt * v
+        self.position = distans_x + self.position
+        return self.position
         
-
-
-
     def apply_force(self, dt, f):
-        pass
-
-
-
-# Task (5/12): In the Particle class, implement a method inertial_move(self, dt).
-
-# Task (6/12): In the Particle class, implement a method apply_force(self, dt, f)
-
-##########################################
-### NB. Tasks 7–8 are done in view.py. ###
-##########################################
-
-
+        acceleration = f.__rmul__(self.mass)
+        time_force_over_mass = dt * acceleration
+        self.velocity = self.velocity + time_force_over_mass
+        return self.velocity
 # Task (9/12): In the Particle class, add a method bounding_box(self)
 
 

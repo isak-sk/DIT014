@@ -135,6 +135,22 @@ class Particle:
         return self.velocity
 # Task (9/12): In the Particle class, add a method bounding_box(self)
 
+    def bounding_box(self):
+        """
+        Computes the bounding box of a particle
+        :return: pair of vectors
+        """
+        top_left_x = self.x - self.radius
+        top_left_y = self.y + self.radius
+
+        bottom_right_x = self.x + self.radius
+        bottom_right_y = self.y - self.radius
+
+        upper_left_bound = Vec(top_left_x, top_left_y)
+        bottom_right_bound = Vec(bottom_right_x, bottom_right_y)
+
+        return upper_left_bound, bottom_right_bound
+
 
 ###########################################
 ### When you're done with all 12 tasks: ###

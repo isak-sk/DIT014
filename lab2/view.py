@@ -10,9 +10,7 @@ o = canvas.create_oval(80, 30, 140, 150, fill='purple')
 input()
 
 # Task (8/12): Define a new function to_canvas_coords(canvas, x)
-
-
-def to_canvas_coords(canvas, u):
+def to_canvas_coords(canvas, u: Vec):
 
     height = canvas.winfo_reqheight()
     width = canvas.winfo_reqwidth()
@@ -29,14 +27,6 @@ def to_canvas_coords(canvas, u):
     canvas_vec = Vec(canvas_x, canvas_y)
 
     return canvas_vec
-
-
-
-
-
-
-
-
 
 
 #######################################

@@ -6,7 +6,7 @@ import math
 
 
 class Vec:
-    def __init__(self, x: float, y: float):
+    def __init__(self, x: float, y: float) -> None:
         """
         :param x:  x coordinate of the vector
         :param y:  y coordinate of the vector
@@ -46,8 +46,8 @@ class Vec:
         :param other: Vector to be added to self
         :return: New vector sum
         """
-        x_sum: float = self.x + other.x
-        y_sum: float = self.y + other.y
+        x_sum: float | int = self.x + other.x
+        y_sum: float | int = self.y + other.y
 
         added_vector = Vec(x_sum, y_sum)
 
@@ -109,11 +109,8 @@ def dot(u: Vec, v: Vec) -> float | int:
 
 # Task (4/12): Create a class Particle
 
-
-
-
 class Particle:
-    def __init__(self, mass: int, position: Vec, velocity: int, radius: float) -> None:
+    def __init__(self, mass: int, position: Vec, velocity: Vec, radius: float) -> None:
         self.mass = mass
         self.position = position
         self.velocity = velocity
@@ -126,17 +123,24 @@ class Particle:
         Modifies the position attribute according the formula:
         (t1 - t0)v + x at time t1
         """
-        v = self.velocity
-        distans_x = dt * v
-        self.position = distans_x + self.position
+        distance_x = dt * self.velocity
+        self.position = distance_x + self.position
+
         return self.position
         
 
 # Task (6/12): In the Particle class, implement a method apply_force(self, dt, f)
-    def apply_force(self, dt: float, f: int):
-        acceleration = f.__rmul__(self.mass)
-        time_force_over_mass = dt * acceleration
-        self.velocity = self.velocity + time_force_over_mass
+    def apply_force(self, dt: float, f: Vec):
+        """
+        Modifies the velocity attribute like:
+        v1 = (t1 - t0)a + v0, where a = f / m
+        :param dt: time interval
+        :param f: force
+        :return: velocity
+        """
+        acceleration = (1 / self.mass) * f
+        self.velocity = self.velocity + dt * acceleration
+
         return self.velocity
 
 

@@ -10,9 +10,7 @@ o = canvas.create_oval(80, 30, 140, 150, fill='purple')
 input()
 
 # Task (8/12): Define a new function to_canvas_coords(canvas, x)
-
-
-def to_canvas_coords(canvas, u):
+def to_canvas_coords(canvas, u: Vec):
 
     height = canvas.winfo_reqheight()
     width = canvas.winfo_reqwidth()
@@ -31,19 +29,21 @@ def to_canvas_coords(canvas, u):
     return canvas_vec
 
 
-
-
-
-
-
-
-
-
 #######################################
 ### NB. Task 9 is done in model.py. ###
 #######################################
 
 # Task (10/12): Define a new function move_oval_to(o, u1, u2)
+def move_oval_to(canvas, o, u1: Vec, u2: Vec):
+
+    coordinates_u1 = to_canvas_coords(canvas, u1)
+    coordinates_u2 = to_canvas_coords(canvas, u2)
+    x1, y1 = coordinates_u1.get_coords()
+    x2, y2 = coordinates_u2.get_coords()
+
+    oval = canvas.coords(o, x1, y1, x2, y2)
+
+    return oval
 
 # Task (11/12): Define a new function create_oval(canvas, particle)
 

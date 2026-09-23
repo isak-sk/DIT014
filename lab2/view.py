@@ -8,7 +8,6 @@ canvas = Canvas(root, bg="white", width=800, height=600)
 canvas.pack()
 #o = canvas.create_oval(80, 30, 140, 150, fill='purple')
 
-#input()
 
 # Task (8/12): Define a new function to_canvas_coords(canvas, x)
 def to_canvas_coords(canvas, u: Vec):
@@ -60,13 +59,24 @@ def create_oval(canvas, particle: Particle):
 
 
 ### TEMPORARY TEST: REMOVE FOR SUBMISSION
-for n in range(5):
-  particle = Particle(0, Vec(n,n), Vec(0,0), 0.2)
-  create_oval(canvas, particle)
-  canvas.update()
-  time.sleep(1)
-
-
+#for n in range(5):
+#  particle = Particle(0, Vec(n,n), Vec(0,0), 0.2)
+#  create_oval(canvas, particle)
+#  canvas.update()
+#  time.sleep(1)
 
 
 # Task (12/12): Define a function simulation_loop(f, timestep, particles)
+
+def simulation_loop(f, timestep, particles):
+
+    for particle in particles:
+        current = time.time()
+        print(current)
+        o = create_oval(canvas, particle)
+        position = particle.inertial_move(timestep)
+        vec1, vec2 = particle.bounding_box()
+        move_oval_to(canvas, o, vec1, vec2)
+
+        canvas.update()
+        time.sleep(0.5)

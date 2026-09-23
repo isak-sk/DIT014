@@ -1,6 +1,19 @@
+from model import *
+from tkinter import *
+
 # Task (7/12): Draw on canvas
 
 # Task (8/12): Define a new function to_canvas_coords(canvas, x)
+
+
+def to_canvas_coord(canvas, u: Vec):
+
+
+    height = canvas.winfo_reqheight()
+    widght = canvas.winfo_reqwidth()
+
+
+
 
 #######################################
 ### NB. Task 9 is done in model.py. ###

@@ -6,6 +6,21 @@ import sys
 import urllib.request
 
 
+def handle_input(file_path):
+    try:
+        if "http" not in file_path:
+            file = open(file_path)
+            return file
+        else:
+            response = urllib.request.urlopen(file_path)
+            file = response.read().decode("utf8").splitlines()
+            return file
+    except FileNotFoundError:
+        manual_file = str(input("Couldnt read file - Please enter manually: "))
+        return handle_input(manual_file)
+    except Exception as e:
+        print(e)
+
 def main():
     try:
         stop_path = sys.argv[1]
@@ -15,15 +30,7 @@ def main():
         print("Couldnt get positional input argument: ", e)
         exit()
 
-    try:
-        if "http" not in sys.argv[2]:
-            input = open(file_path)
-        else:
-            response = urllib.request.urlopen(sys.argv[2])
-            input = response.read().decode("utf8").splitlines()
-    except Exception as e:
-        print("Couldnt load input file: ", e)
-        exit()
+    input_file = handle_input(file_path)
 
     try:
         top_stop = int(top_stop)
@@ -39,11 +46,11 @@ def main():
         print("Couldnt open file from argument line", e)
         exit()
 
-    words = wordfreq.tokenize(input)
+    words = wordfreq.tokenize(input_file)
 
-    dict = wordfreq.countWords(words, stop)
+    dictionary = wordfreq.countWords(words, stop)
 
-    wordfreq.printTopMost(dict, top_stop)
+    wordfreq.printTopMost(dictionary, top_stop)
 
 
 main()

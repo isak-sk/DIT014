@@ -124,7 +124,13 @@ class Particle:
         (t1 - t0)v + x at time t1
         """
 
+        
+
+
+
+    def apply_force(self, dt, f):
         pass
+
 
 
 # Task (5/12): In the Particle class, implement a method inertial_move(self, dt).

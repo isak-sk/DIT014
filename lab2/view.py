@@ -12,16 +12,27 @@ input()
 # Task (8/12): Define a new function to_canvas_coords(canvas, x)
 
 
-def to_canvas_coord(canvas, u):
-
+def to_canvas_coords(canvas, u):
 
     height = canvas.winfo_reqheight()
     width = canvas.winfo_reqwidth()
     scaling_factor = (height / 20)
-    sim_x = u[0]
-    sim_y = u[1]
+    sim_x, sim_y = u.get_coords()
 
-    canvas_vector = Vec(sim_x, sim_y)
+    # Invert y axis
+    canvas_y = sim_y * -1
+
+    # translate to (0, 0)
+    canvas_x = (sim_x * scaling_factor) + (width / 2)
+    canvas_y = (canvas_y * scaling_factor) + (height / 2)
+
+    canvas_vec = Vec(canvas_x, canvas_y)
+
+    return canvas_vec
+
+
+
+
 
 
 

@@ -6,7 +6,7 @@ from model import Particle, Vec
 
 lastPressedKey = None
 
-selected = 0      # index of the currently controlled particle
+selected = "all"     # index of the currently controlled particle
 mode = "move"     # "move", "accel"
 
 MODES = ["move", "accel"]
@@ -55,6 +55,7 @@ def handle_key(key, dt, particles):
     global selected, mode, angle
 
     if key == "x":
+        print("Pressed x: exiting")
         exit()
 
     elif key == "space":
@@ -68,18 +69,29 @@ def handle_key(key, dt, particles):
         else:
             print("That particle doesn't exist:", i)
 
+    elif key == "a":
+        print("selected all particles")
+        selected = "all"
+
+
     elif key == "m":
         mode = MODES[(MODES.index(mode) + 1) % len(MODES)]
         print("Mode:", mode)
 
     elif key in DIRECTIONS:
-        p = particles[selected]
 
-        if mode == "move":
-            p.position = p.position + MOVE_STEP * DIRECTIONS[key]
+        if selected == "all":
+            targets = particles
+        else:
 
-        elif mode == "accel":
-            kick(dt, p, DIRECTIONS[key], ACCEL_STEP)
+            targets = [particles[selected]]
+
+        for p in targets:
+            if mode == "move":
+                p.position = p.position + MOVE_STEP * DIRECTIONS[key]
+
+            elif mode == "accel":
+                kick(dt, p, DIRECTIONS[key], ACCEL_STEP)
 
 
     elif key == "r":
@@ -110,6 +122,7 @@ CONTROLS_TEXT = """\
 Controls
 
 0-9      select particle
+a        select all particles
 m        switch mode (move / accel)
 Arrows   move: shift position
          accel: change velocity

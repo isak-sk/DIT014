@@ -120,7 +120,13 @@ class Particle:
     def inertial_move(self, dt: float) -> Vec:
         """
         Modifies the position attribute according the formula:
-        (t1 - t0)v + x at time t1
+        (x, y) = dt * v + x0 at time t1
+        
+        parmeters: 
+        dt (float): The time step(Delta t) it took to move the particle forward
+
+        Returns:
+        Vec: The updated position Vector with x and y coordinates
         """
         distance_x = dt * self.velocity
         self.position = distance_x + self.position
@@ -131,11 +137,15 @@ class Particle:
 # Task (6/12): In the Particle class, implement a method apply_force(self, dt, f)
     def apply_force(self, dt: float, f: Vec):
         """
-        Modifies the velocity attribute like:
-        v1 = (t1 - t0)a + v0, where a = f / m
-        :param dt: time interval
-        :param f: force
-        :return: velocity
+        Modifies the velocity attribute according to the formula:
+        v1 = dt * (f / m) + v0
+
+        Parameters:
+        dt (float): The time step (delta time) the force is applied
+        f (Vec): The applied force vector on the particle
+
+        Returns:
+        Vec: The updated velocity vector with new x and y coordinates
         """
         acceleration = (1 / self.mass) * f
         self.velocity = self.velocity + dt * acceleration

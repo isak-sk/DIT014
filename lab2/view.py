@@ -80,18 +80,3 @@ def simulation_loop(f, timestep, particles):
             canvas.update()
             last_update = now
 
-# -----------------------------------------------------------------
-# Below is just test code, should be removed later
-# -----------------------------------------------------------------
-
-def gravity(dt, particles):
-    for p in particles:
-        p.apply_force(dt, Vec(0, -9.81 * p.mass))
-
-if __name__ == "__main__":
-
-    particles = [
-        Particle(1, Vec(-5, 5), Vec(2, 0), 0.5),
-        Particle(2, Vec(2, 0), Vec(-1, 6), 0.8),
-    ]
-    simulation_loop(gravity, 0.000001, particles)

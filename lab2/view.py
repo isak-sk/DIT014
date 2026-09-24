@@ -47,10 +47,24 @@ def move_oval_to(canvas, o, u1: Vec, u2: Vec):
 # Task (11/12): Define a new function create_oval(canvas, particle)
 
 def create_oval(canvas, particle: Particle):
+#start test for eloct force
+    max_charge = 10
+    ratio =((particle.charge)/max_charge)
+    print("ratio:", ratio)
+    charge_ratio = min(abs(ratio), 1.0)
+    intensity = int(charge_ratio*255)
+    print("Intensity:", intensity)
+    if particle.charge > 0:
+        particle_color = f"#0000{intensity:02x}"
+    elif particle.charge < 0:
+        particle_color = f"#ff00{intensity:02x}"
+    else:
+        particle_color = f"#808080"
+#end test
 
     u1, u2 = Particle.bounding_box(particle)
 
-    o = canvas.create_oval(80, 30, 140, 150, fill='purple')
+    o = canvas.create_oval(80, 30, 140, 150, fill=particle_color)
 
     move_oval_to(canvas, o, u1, u2)
 

@@ -115,6 +115,7 @@ class Particle:
         self.position = position
         self.velocity = velocity
         self.radius = radius
+        self.charge = 0
 
 # Task (5/12): In the Particle class, implement a method inertial_move(self, dt).
     def inertial_move(self, dt: float) -> Vec:
@@ -168,6 +169,14 @@ class Particle:
         bottom_right_bound = Vec(x + self.radius, y - self.radius)
 
         return upper_left_bound, bottom_right_bound
+
+    
+
+# experimental electromagnetic forces:
+    def set_charge(self, new_charge: float):
+        self.charge = new_charge
+
+
 
 
 ###########################################

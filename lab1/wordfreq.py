@@ -1,23 +1,23 @@
 def tokenize(lines):
     words = []
 
-
     for line in lines:
-
 
         current_word = ""
         current_type = None
         i = 0
 
-
+        # Go through whole line of the text
         while i < len(line):
             char = line[i]
 
+            # If we see a spacebar, we make a new word, if the current word is not empty
             if char.isspace():
                 if current_word != "":
                     words.append(current_word)
                     current_word = ""
                     current_type = None
+            # Otherwise we classify what we see and loop as long as wee see that type
             else:
                 if char.isalpha():
                     type = "letter"
@@ -39,37 +39,35 @@ def tokenize(lines):
 
             i += 1
 
-
         if current_word != "":
             words.append(current_word)
 
-
     return words
 
-def countWords(words, stopWords):
+def countWords(words, stopwords):
 
     # Lower all words in stopwords
-    stopWords = [x.lower() for  x in stopWords]
+    stopwords = [x.lower() for  x in stopwords]
 
-    dict = {}
+    words_without_stopwords = {}
 
     for word in words:
 
-        if word not in stopWords:
+        if word not in stopwords:
 
-            if word not in dict:
-                dict[word] = 1
+            if word not in words_without_stopwords:
+                words_without_stopwords[word] = 1
 
             else:
-                dict[word] += 1
+                words_without_stopwords[word] += 1
 
-    return dict
+    return words_without_stopwords
 
-def printTopMost(dict, n):
+def printTopMost(words_without_stopwords, n):
     
-    # Sort the values (count) of the dictionary in descending order
-    dict = {k: v for k, v in sorted(dict.items(), key=lambda item: item[1], reverse=True)}
+    # Sort the values (count of each word) of the dictionary in descending order
+    words_without_stopwords = {k: v for k, v in sorted(words_without_stopwords.items(), key=lambda item: item[1], reverse=True)}
 
     # Print the top n key value pairs
-    for k, v in list(dict.items())[:n]:
+    for k, v in list(words_without_stopwords.items())[:n]:
         print(k.ljust(20) + str(v).rjust(5))

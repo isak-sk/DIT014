@@ -50,10 +50,8 @@ def create_oval(canvas, particle: Particle):
 #start test for eloct force
     max_charge = 10
     ratio =((particle.charge)/max_charge)
-    print("ratio:", ratio)
     charge_ratio = min(abs(ratio), 1.0)
     intensity = int(charge_ratio*255)
-    print("Intensity:", intensity)
     if particle.charge > 0:
         particle_color = f"#0000{intensity:02x}"
     elif particle.charge < 0:

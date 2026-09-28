@@ -150,9 +150,8 @@ class Particle:
         """
         acceleration = (1 / self.mass) * f
         self.velocity = self.velocity + dt * acceleration
-
         return self.velocity
-
+  
 
 
 # Task (9/12): In the Particle class, add a method bounding_box(self)

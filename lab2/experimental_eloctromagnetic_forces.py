@@ -9,8 +9,9 @@ for i in range(n):
     u = Vec(math.cos(theta),math.sin(theta))
     pos = 10 * u
     vel = -1 * u 
-    p = Particle(1,pos,vel,0.2)
-    charge = random.uniform(-10,10)
+    p = Particle(9.11e-25,pos,vel,0.2)
+    #charge = random.uniform(-10,10)
+    charge = random.choice([(-1.602e-13),(1.602e-13)])
     p.set_charge(charge)
     particles.append(p)
 
@@ -24,11 +25,12 @@ def coulomb_force(dt, particles, k=(8.99*(10**9))):
                 q1 = particle.charge
                 q2 = other_particle.charge
                 lenght = Vec.__sub__(particle.position, other_particle.position)
-                r = abs(lenght.norm())
+                r = lenght.norm()
                 if r == 0:
+                    particles.remove(particle, other_particle)
                     continue
-                if r < 5:
-                    r = 5
+                if r < 10:
+                    r = 10
                 normaliserad_form_x = lenght.x / r
                 normaliserad_form_y = lenght.y / r
                 force = ((q1*q2)*k)/(r**2)
@@ -36,14 +38,24 @@ def coulomb_force(dt, particles, k=(8.99*(10**9))):
                 vec_force_y = normaliserad_form_y * force
                 vec_force = Vec(vec_force_x, vec_force_y)
                 particle.apply_force(dt, vec_force)
-                
 
 
-def electromagnetic_field(dt, particles, B, mu):
-    pass
 
 
-simulation_loop(coulomb_force, 0.000005, particles)
+def electromagnetic_field(dt, particles, B=10, mu=0.1):
+    for particle in particles:
+        v_magnitude = particle.velocity.norm()
+        if v_magnitude == 0:
+            continue
+        force = B * mu * particle.charge * v_magnitude
+        v_dir_x = particle.velocity.x / v_magnitude
+        v_dir_y = particle.velocity.y / v_magnitude
+        perpendicular_force = Vec(-v_dir_y*force, v_dir_x*force)
+        new_velocity = particle.apply_force(dt, perpendicular_force)
+
+
+
+simulation_loop(electromagnetic_field, 0.000005, particles)
 
 #simulation_loop(no_force, 0.000005, particles)
 

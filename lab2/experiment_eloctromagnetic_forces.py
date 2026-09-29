@@ -27,10 +27,9 @@ def coulomb_force(dt, particles, k=(8.99*(10**9))):
                 lenght = Vec.__sub__(particle.position, other_particle.position)
                 r = lenght.norm()
                 if r == 0:
-                    particles.remove(particle, other_particle)
                     continue
-                if r < 10:
-                    r = 10
+                if r < 4:
+                    r = 4
                 normaliserad_form_x = lenght.x / r
                 normaliserad_form_y = lenght.y / r
                 force = ((q1*q2)*k)/(r**2)
@@ -38,8 +37,6 @@ def coulomb_force(dt, particles, k=(8.99*(10**9))):
                 vec_force_y = normaliserad_form_y * force
                 vec_force = Vec(vec_force_x, vec_force_y)
                 particle.apply_force(dt, vec_force)
-
-
 
 
 def electromagnetic_field(dt, particles, B=10, mu=0.1):
@@ -52,7 +49,6 @@ def electromagnetic_field(dt, particles, B=10, mu=0.1):
         v_dir_y = particle.velocity.y / v_magnitude
         perpendicular_force = Vec(-v_dir_y*force, v_dir_x*force)
         new_velocity = particle.apply_force(dt, perpendicular_force)
-
 
 
 simulation_loop(electromagnetic_field, 0.000005, particles)

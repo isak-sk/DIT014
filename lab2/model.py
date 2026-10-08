@@ -238,6 +238,17 @@ def circular_walls(dt, Particles):
 
 
 def coulomb_force(dt, particles, k=(8.99*(10**9))):
+     """
+    Calculates and applies the elektostatic coulumb forces between all the particels
+
+    Parameters:
+    dt (float/int): The time timestep(Delta time) forces are applied
+    particles(list): list of the gven particel vectors
+    k(float): scoulumbs constant, set to 8.99*(10**9)
+
+    Returns:
+    None: Modifies the particle objekts in place
+    """
     for particle in particles:
         for other_particle in particles:
             if other_particle != particle:
@@ -255,10 +266,23 @@ def coulomb_force(dt, particles, k=(8.99*(10**9))):
                 vec_force_x = normaliserad_form_x * force
                 vec_force_y = normaliserad_form_y * force
                 vec_force = Vec(vec_force_x, vec_force_y)
-                particle.apply_force(dt, vec_force)
+                applied_force = particle.apply_force(dt, vec_force)
 
 
 def electromagnetic_field(dt, particles, B=10, mu=0.1):
+    """
+    Calculates and applies the magnetic lorenz/electromagnetic field force to all moving particels
+
+    Parameters:
+    dt (float): The time timestep(Delta time) the force is applied
+    particles(list): list of the given particel vectors
+    B(float/int): Megnetic field strenght, set to 10
+    mu(float/int): magnetic permability or scaling factor, set to 0.1
+
+    Returns:
+    None: Modifies the particle objekts in place
+
+    """
     for particle in particles:
         v_magnitude = particle.velocity.norm()
         if v_magnitude == 0:
@@ -267,7 +291,7 @@ def electromagnetic_field(dt, particles, B=10, mu=0.1):
         v_dir_x = particle.velocity.x / v_magnitude
         v_dir_y = particle.velocity.y / v_magnitude
         perpendicular_force = Vec(-v_dir_y*force, v_dir_x*force)
-        particle.apply_force(dt, perpendicular_force)
+        new_force = particle.apply_force(dt, perpendicular_force)
 
 
    

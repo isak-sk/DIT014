@@ -51,7 +51,7 @@ def electromagnetic_field(dt, particles, B=10, mu=0.1):
         new_velocity = particle.apply_force(dt, perpendicular_force)
 
 
-simulation_loop(coulomb_force, 0.000005, particles)
+simulation_loop(electromagnetic_field, 0.000005, particles)
 
 #simulation_loop(no_force, 0.000005, particles)
 

@@ -239,12 +239,12 @@ def circular_walls(dt, Particles):
 
 def coulomb_force(dt, particles, k=(8.99*(10**9))):
     """
-    Calculates and applies the elektostatic coulumb forces between all the particels
+    Calculates and applies the electrostatic Coulumb forces between all the particles.
 
     Parameters:
-    dt (float/int): The time timestep(Delta time) forces are applied
-    particles(list): list of the gven particel vectors
-    k(float): scoulumbs constant, set to 8.99*(10**9)
+    dt (float/int): The time timestep(Delta time) over which forces are applied.
+    particles (list): List of the given particle vectors
+    k (float): Coulomb's constant, set to 8.99*(10**9)
 
     Returns:
     None: Modifies the particle objekts in place
@@ -271,17 +271,16 @@ def coulomb_force(dt, particles, k=(8.99*(10**9))):
 
 def electromagnetic_field(dt, particles, B=10, mu=0.1):
     """
-    Calculates and applies the magnetic lorenz/electromagnetic field force to all moving particels
+    Calculates and applies the magnetic lorentz force to all moving particels.
 
     Parameters:
-    dt (float): The time timestep(Delta time) the force is applied
+    dt (float): The timestep(Delta time) over which the force is applied
     particles(list): list of the given particel vectors
-    B(float/int): Megnetic field strenght, set to 10
+    B(float/int): Magnetic field strenght, set to 10
     mu(float/int): magnetic permability or scaling factor, set to 0.1
 
     Returns:
     None: Modifies the particle objekts in place
-
     """
     for particle in particles:
         v_magnitude = particle.velocity.norm()

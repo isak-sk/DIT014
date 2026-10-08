@@ -9,6 +9,18 @@ from view import *
 import math
 import random
 
+def constant_gravitational_field(dt: float, particles: list, g=10):
+    "Apply gravitational force on particles"
+
+    #Downward direction vector
+    d = Vec(0,-1)
+
+    #Go through every particle, calculate the gravitational force and apply it with the apply_force() method
+    for p in particles:
+        m = p.mass
+        f = g * m * d
+        p.apply_force(dt,f)
+
 #Creating a list of randomized particles
 amount = random.randint(1,10)
 particles = []
@@ -22,7 +34,8 @@ for x in range(amount):
     p_radius = random.randint(1,2)
     p = Particle(p_mass,Vec(p_xpos,p_ypos),Vec(p_xvel,p_yvel),p_radius)
     particles.append(p) 
-    
+
+
 timestep = 0.000005
 
 #Calling the simulation_loop with this experiment as a parameter

@@ -164,3 +164,18 @@ class Particle:
 ### When you're done with all 12 tasks: ###
 ### forces/other features in this file! ###
 ###########################################
+
+def constant_gravitational_field(dt: float, particles: list, g=10):
+    "Apply gravitational force on particles"
+
+    #Downward direction vector
+    d = Vec(0,-1)
+
+    #Go through every particle, calculate the gravitational force and apply it with the apply_force() method
+    for p in particles:
+        m = p.mass
+        f = g * m * d
+        p.apply_force(dt,f)
+        
+
+   

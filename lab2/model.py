@@ -238,7 +238,7 @@ def circular_walls(dt, Particles):
 
 
 def coulomb_force(dt, particles, k=(8.99*(10**9))):
-     """
+    """
     Calculates and applies the elektostatic coulumb forces between all the particels
 
     Parameters:

@@ -1,3 +1,12 @@
+"""
+This experiment implements walls so that the particles stays on screen. 
+You can either have 4 straight walls as a cube or a circular arena.
+k = A spring constant which measures how stiff the wall is
+n = A normal vector which points directly away from the wall
+a = The point of the wall
+x = The position of the particle
+"""
+
 from view import * 
 from model import *
 import math

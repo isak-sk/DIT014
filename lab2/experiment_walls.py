@@ -1,6 +1,7 @@
 from view import * 
 from model import *
 import math
+import sys
 
 #Check if the particle is in the wall and calculate force
 def wall_force(dt, particles, k, n, a):
@@ -53,7 +54,9 @@ for i in range(n):
     vel = -1 * u 
     particles.append(Particle(1,pos,vel,0.2))
 
-experiment = ("square")
+# Get user input for what experiment they want to do
+experiment = sys.argv[1]
+
 if experiment == ("square"):
         print("Kör experimentet med fyrkantiga väggar")
         simulation_loop(combined_walls, 0.00005, particles)
@@ -62,4 +65,3 @@ elif experiment == ("circle"):
     print("Kör experimentet med rund vägg")
 else:
     print("Okänt experiment.")
-

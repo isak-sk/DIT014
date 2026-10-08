@@ -2,6 +2,32 @@ from model import *
 from tkinter import *
 import time
 
+
+
+
+
+
+# Helper function for walls in other files
+def reflect(pos: float, vel: float, limit: float):
+    if pos < -limit:
+        return -limit, abs(vel)
+    if pos > limit:
+        return limit, -abs(vel)
+    return pos, vel
+
+
+def keep_particles_inside_arena(particles):
+    for p in particles:
+        x, vx = reflect(p.position.x, p.velocity.x, 10)
+        y, vy = reflect(p.position.y, p.velocity.y, 8)
+        p.position = Vec(x, y)
+        p.velocity = Vec(vx, vy)
+
+        print(p.position)
+        print(p.velocity)
+
+
+
 # Task (7/12): Draw on canvas
 root = Tk()
 canvas = Canvas(root, bg="white", width=800, height=600)
@@ -47,20 +73,25 @@ def move_oval_to(canvas, o, u1: Vec, u2: Vec):
 # Task (11/12): Define a new function create_oval(canvas, particle)
 
 def create_oval(canvas, particle: Particle):
-#start test for eloct force
+
     max_charge = 10
+
     ratio =((particle.charge)/max_charge)
+
     charge_ratio = min(abs(ratio), 1.0)
+
     intensity = int(charge_ratio*255)
+
     if particle.charge > 0:
         particle_color = f"#0000{intensity:02x}"
+
     elif particle.charge < 0:
         particle_color = f"#ff00{intensity:02x}"
+
     else:
         particle_color = f"#808080"
-#end test
 
-    u1, u2 = Particle.bounding_box(particle)
+    u1, u2 = particle.bounding_box()
 
     o = canvas.create_oval(80, 30, 140, 150, fill=particle_color)
 
@@ -80,6 +111,7 @@ def simulation_loop(f, timestep, particles):
 
     while True:
         f(timestep, particles)
+        keep_particles_inside_arena(particles)
 
         for p in particles:
             p.inertial_move(timestep)

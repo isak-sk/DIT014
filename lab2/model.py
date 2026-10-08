@@ -192,6 +192,82 @@ def constant_gravitational_field(dt: float, particles: list, g=10):
         m = p.mass
         f = g * m * d
         p.apply_force(dt,f)
-        
+
+
+
+
+#Check if the particle is in the wall and calculate force
+def wall_force(dt, particles, k, n, a):
+    # distance to wall = (x - a)• n
+    # force = -kdn
+    for particle in particles:
+        x = particle.position
+        distance = dot(x - a, n)
+
+        if distance < 0:
+            force = ((-k) * distance * n)
+            particle.apply_force(dt, force)
+
+#Vectors for all 4 walls, check each particle on all 4 walls
+def combined_walls(dt, particles):
+        walls= [
+        (Vec(1, 0), Vec(-8, 0)),
+        (Vec(-1, 0), Vec(8, 0)),
+        (Vec(0, 1), Vec(0, -8)),
+        (Vec(0, -1), Vec(0, 8)),
+        ]
+        for n, a in walls:
+            wall_force(dt, particles, 5, n, a)
+
+#Check if the particle is in the wall and calculates force
+#This time with a circular wall
+def circular_arena(dt, particles, k, R):
+    #f = k * (R - r) * (x / r)
+    # = k * ((R - r)/r) * x
+    for particle in particles:
+        x = particle.position
+        r = x.norm()
+
+        if r > R:
+            force = k * ((R - r)/ r) * x
+            particle.apply_force(dt, force)
+
+#Adds dt an Particles
+def circular_walls(dt, Particles):
+    circular_arena(dt, Particles, 5, 8)
+
+
+def coulomb_force(dt, particles, k=(8.99*(10**9))):
+    for particle in particles:
+        for other_particle in particles:
+            if other_particle != particle:
+                q1 = particle.charge
+                q2 = other_particle.charge
+                lenght = Vec.__sub__(particle.position, other_particle.position)
+                r = lenght.norm()
+                if r == 0:
+                    continue
+                if r < 4:
+                    r = 4
+                normaliserad_form_x = lenght.x / r
+                normaliserad_form_y = lenght.y / r
+                force = ((q1*q2)*k)/(r**2)
+                vec_force_x = normaliserad_form_x * force
+                vec_force_y = normaliserad_form_y * force
+                vec_force = Vec(vec_force_x, vec_force_y)
+                particle.apply_force(dt, vec_force)
+
+
+def electromagnetic_field(dt, particles, B=10, mu=0.1):
+    for particle in particles:
+        v_magnitude = particle.velocity.norm()
+        if v_magnitude == 0:
+            continue
+        force = B * mu * particle.charge * v_magnitude
+        v_dir_x = particle.velocity.x / v_magnitude
+        v_dir_y = particle.velocity.y / v_magnitude
+        perpendicular_force = Vec(-v_dir_y*force, v_dir_x*force)
+        particle.apply_force(dt, perpendicular_force)
+
 
    

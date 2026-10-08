@@ -65,7 +65,7 @@ if experiment == "electro":
 
 elif experiment == "coulomb":
 
-    simulation_loop(coulomb_force, 0.000000005, particles)
+    simulation_loop(coulomb_force, 0.00000005, particles)
 
 else:
     print("Unknown experiment")

@@ -7,7 +7,7 @@ import time
 
 
 
-# Helper function for walls in other files
+# Helper function for applying walls in to all expertiments files
 def reflect(pos: float, vel: float, limit: float):
     if pos < -limit:
         return -limit, abs(vel)
@@ -15,11 +15,10 @@ def reflect(pos: float, vel: float, limit: float):
         return limit, -abs(vel)
     return pos, vel
 
-
 def keep_particles_inside_arena(particles):
     for p in particles:
-        x, vx = reflect(p.position.x, p.velocity.x, 10)
-        y, vy = reflect(p.position.y, p.velocity.y, 8)
+        x, vx = reflect(p.position.x, p.velocity.x, 12)
+        y, vy = reflect(p.position.y, p.velocity.y, 9)
         p.position = Vec(x, y)
         p.velocity = Vec(vx, vy)
 

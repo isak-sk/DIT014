@@ -59,9 +59,9 @@ experiment = sys.argv[1]
 
 if experiment == ("square"):
     print("Kör experimentet med fyrkantiga väggar")
-    simulation_loop(combined_walls, 0.00005, particles)
+    simulation_loop(combined_walls, 0.0005, particles)
 elif experiment == ("circle"):
-    simulation_loop(circular_walls, 0.00005, particles) 
+    simulation_loop(circular_walls, 0.0005, particles)
     print("Kör experimentet med rund vägg")
 else:
     print("Okänt experiment.")

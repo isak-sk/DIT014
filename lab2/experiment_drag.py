@@ -1,10 +1,17 @@
+from view import *
+import math
+import random
+import sys
+
+
+
 n = 20
 particles = []
 for i in range(n):
     theta = i * 2 * math.pi / n
     u = Vec(math.cos(theta),math.sin(theta))
     pos = 10 * u
-    vel = -1 * u
+    vel = -10 * u
     p = Particle(1 , pos , vel ,0.2)
     charge = random.choice([-5,5])
     p.set_charge(charge)
@@ -14,7 +21,7 @@ for i in range(n):
 """
 Antagande att partiklarna rör sig på "golvet" och blir tryckta bortfrån skärmen/golvet med gravitationskraft.
 """
-def friction(dt, particles, my=0.1, g=9.82):
+def friktion(dt, particles, my=0.509, g=9.82):
     for particle in particles:
         velocity = particle.velocity
         vel_norm = velocity.norm()

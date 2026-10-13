@@ -5,22 +5,31 @@ import math
 
 
 def collision(dt, particles, k):
-    for p1 in particles:
-        for p2 in particles:
-            if p2 != p1:
-                r = dot(p1.position, p2.position)
+    for p2 in particles:
+        total_force = Vec(0,0)
+        for p1 in particles:
+            if p2 is not p1:
+                distance = (p2.position - p1.position)
+
+                r = distance.norm()
+
+                if r == 0:
+                    continue
 
                 if r < (p1.radius + p2.radius):
                     F = k * (p1.radius + p2.radius - r)
+                    direction = (1/r) * distance
+                    force_vector = F * direction
+                    total_force = total_force + force_vector
 
-                    print(F)
-                else:
-                    print("no force")
+        p2.apply_force(dt, total_force)
 
+
+def collision_wrapper(dt, particles):
+    collision(dt, particles, 5)
 
 if __name__ == "__main__":
     n = 20
-    k = 5
     dt = 0.0005
 
 
@@ -32,9 +41,10 @@ if __name__ == "__main__":
         u = Vec(math.cos(theta), math.sin(theta))
         pos = 10 * u
         vel = -1 * u
-        rad = random.uniform(0.0, 10.0)
+        rad = random.uniform(0.0, 1.0)
         p = Particle(1, pos, vel, rad)
         charge = random.choice([-5, 5])
         p.set_charge(charge)
         particles.append(p)
-    collision(dt, particles, k)
+
+    simulation_loop(collision_wrapper, dt, particles)

@@ -22,8 +22,6 @@ def keep_particles_inside_arena(particles):
         p.position = Vec(x, y)
         p.velocity = Vec(vx, vy)
 
-        print(p.position)
-        print(p.velocity)
 
 
 

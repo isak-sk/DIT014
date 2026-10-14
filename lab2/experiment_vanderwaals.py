@@ -19,7 +19,7 @@ from view import simulation_loop
 import random
 
 
-def vanderwaals_force(dt, particles, A):
+def vanderwaals_force(dt, particles, A = 100):
     for p2 in particles:
         total_force = Vec(0, 0)
 
@@ -62,13 +62,9 @@ particles = [p1,p2,p3,p4]
 
 
 
-# Apply the force at each simulation step
-def experiment(dt, particles):
-    vanderwaals_force(dt, particles, 100)
-
 
 # Change this value to compare different time steps
 timestep = 0.00001
 
-simulation_loop(experiment, timestep, particles)
+simulation_loop(vanderwaals_force, timestep, particles)
 

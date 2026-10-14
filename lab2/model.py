@@ -294,3 +294,87 @@ def electromagnetic_field(dt, particles, B=10, mu=0.1):
 
 
    
+def collision(dt, particles, k = 5):
+    for p2 in particles:
+        total_force = Vec(0, 0)
+        for p1 in particles:
+            if p2 is not p1:
+                distance = p2.position - p1.position
+
+                r = distance.norm()
+
+                if r == 0:
+                    continue
+
+                if r < (p1.radius + p2.radius):
+                    F = k * (p1.radius + p2.radius - r)
+                    direction = (1 / r) * distance
+                    force_vector = F * direction
+                    total_force += force_vector
+
+        p2.apply_force(dt, total_force)
+
+def gravitational_force(dt: float, particles: list[Particle], G=150):
+    "For each particle, calculate the gravitational force exerted by every other particle, and apply the accumulated force on the particle"
+
+    # Loop through every particle
+    for p2 in particles:
+        # Force vector where the forces will be accumulated
+        F_total = Vec(0, 0)
+
+        # Loop through every other particle
+        for p1 in particles:
+            # Skip itself
+            if p1 is p2:
+                continue
+
+            m1 = p1.mass
+            m2 = p2.mass
+
+            # Difference vector
+            r_vec = p1.position - p2.position
+
+            # Length of the differnce vector; distance between the two particles
+            r = r_vec.norm()
+
+            # Avoid division by zero
+            if r == 0:
+                continue
+
+            # Direction vector
+            direction = Vec(r_vec.x / r, r_vec.y / r)
+
+            # Calculate the force
+            F = (G * m1 * m2) / (r**2)
+
+            # Multiply it with the direction vector
+            F2 = F * direction
+
+            # Add it to total
+            F_total = F_total + F2
+
+        # Apply to the total force to the particle
+        p2.apply_force(dt, F_total)
+
+
+
+def vanderwaals_force(dt, particles, A = 100):
+    for p2 in particles:
+        total_force = Vec(0, 0)
+
+        for p1 in particles:
+            if p1 is not p2:
+                direction = p1.position - p2.position
+                length = direction.norm()
+
+                if length != 0:
+                    R1 = p1.radius
+                    R2 = p2.radius
+
+                    F = (A * R1 * R2) / (6 * (R1 + R2) * length**2)
+                    unit_direction = (1 / length) * direction
+
+                    total_force = total_force + F * unit_direction
+
+        # Apply the accumulated force
+        p2.apply_force(dt, total_force)

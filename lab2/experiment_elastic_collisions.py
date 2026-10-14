@@ -13,7 +13,7 @@ import random
 import math
 
 
-def collision(dt, particles, k):
+def collision(dt, particles, k = 5):
     for p2 in particles:
         total_force = Vec(0, 0)
         for p1 in particles:
@@ -34,9 +34,6 @@ def collision(dt, particles, k):
         p2.apply_force(dt, total_force)
 
 
-def collision_wrapper(dt, particles):
-    collision(dt, particles, 5)
-
 
 if __name__ == "__main__":
     n = 20
@@ -55,4 +52,4 @@ if __name__ == "__main__":
         p.set_charge(charge)
         particles.append(p)
 
-    simulation_loop(collision_wrapper, dt, particles)
+    simulation_loop(collision, dt, particles)

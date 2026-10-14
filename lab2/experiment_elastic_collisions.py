@@ -51,7 +51,7 @@ if __name__ == "__main__":
         u = Vec(math.cos(theta), math.sin(theta))
         pos = 10 * u
         vel = -1 * u
-        rad = random.uniform(0.0, 1.0)
+        rad = random.uniform(0.2, 1.2)
         p = Particle(1, pos, vel, rad)
         charge = random.choice([-5, 5])
         p.set_charge(charge)

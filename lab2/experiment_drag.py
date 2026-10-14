@@ -13,7 +13,7 @@ for i in range(n):
     theta = i * 2 * math.pi / n
     u = Vec(math.cos(theta),math.sin(theta))
     pos = 10 * u
-    vel = -100 * u
+    vel = -1000 * u
     p = Particle(1 , pos , vel ,0.2)
     charge = random.choice([-1,1])
     p.set_charge(charge)
@@ -23,11 +23,10 @@ for i in range(n):
 """
 Antagande att partiklarna rör sig på "golvet" och blir tryckta bortfrån skärmen/golvet med gravitationskraft.
 """
-def friktion(dt, particles, my_rörelse=0.509, g=9.82):
+def friktion(dt, particles, my=0.509, g=9.82):
     for particle in particles:
         velocity = particle.velocity
         vel_norm = velocity.norm()
-        my = my_rörelse
         if vel_norm == 0:
             continue
         m = particle.mass
@@ -49,12 +48,16 @@ def drag(dt, particles, p=1.225, cd=0.47):
         vel_norm = particle.velocity.norm()
         if vel_norm == 0:
             continue
-        force = (1/2) * area * p * cd * (vel_norm ** 2)
-        force_x = -force* (particle.velocity.x/vel_norm)
-        force_y = -force* (particle.velocity.y/vel_norm)
+        m = particle.mass
+        drag = (1/2) * area * p * cd * (vel_norm ** 2)
+        t0_force = (vel_norm * m)/dt
+        if drag > t0_force:
+            drag = t0_force
+        force_x = -drag* (particle.velocity.x/vel_norm)
+        force_y = -drag* (particle.velocity.y/vel_norm)
         drag_force = Vec(force_x, force_y)
         particle.apply_force(dt, drag_force)
 
 
 
-simulation_loop(friktion, 0.000005, particles)
+simulation_loop(drag, 0.000005, particles)

@@ -1,3 +1,13 @@
+"""
+This experiment implements collisions between particles.
+It goes through every particle, and for each particle it goes through every particle.
+This way every particle can collide with all the others.
+It calculates the distance r and if r is less than the 2 radii summed together,
+the force is accumalated for all particles and then at the end applied to each particle.
+The force is a force vector, meaning its the force * the direction
+"""
+
+
 from model import *
 from view import *
 import random

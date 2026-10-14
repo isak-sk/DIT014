@@ -1,3 +1,20 @@
+"""
+In this experiment we intend to apply electromagnetic and coulumbs force to a set amount of particles. 
+In coulumbs forces the particels should repuls particels of the same charge and attract opposit charges. 
+This happens becuse the elektrostatic forces deppend on the product of these two charges and the distance between themc according to cuolumbs law.
+
+The magnetic field affects moving charged particles by applying a force perpendicular to their velocity. This is based on the magnetic Lorentz force.
+Since the force is perpendicular to the velocity, it changes the direction of the particle's motion rather than its speed, ideally causing the particle to move in a circular path.
+
+The observed behavior is expected to follow these physicle principle, although these movements also deppend on the given velocity, 
+the strenght of the forces and the given timesteps.
+
+"""
+
+
+
+
+
 from view import *
 import math
 import random

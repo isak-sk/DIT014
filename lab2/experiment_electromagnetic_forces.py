@@ -10,18 +10,23 @@ experiment = sys.argv[1]
 
 
 
+p1 = Particle(1, Vec(5, -5), Vec(-5, 5), 0.5)
+p1.set_charge(5)
 
-n = 20
-particles = []
-for i in range(n):
-    theta = i * 2 * math.pi / n
-    u = Vec(math.cos(theta),math.sin(theta))
-    pos = 10 * u
-    vel = -1 * u
-    p = Particle(1 , pos , vel ,0.2)
-    charge = random.choice([-5,5])
-    p.set_charge(charge)
-    particles.append(p)
+p2 = Particle(1, Vec(-5, -5), Vec(5, 5), 0.5)
+p2.set_charge(-5)
+
+p3 = Particle(1, Vec(5, 5), Vec(-5, -5), 0.5)
+p3.set_charge(5)
+
+p4 = Particle(1, Vec(5, -5), Vec(-5,5),0.5)
+p4.set_charge(-5)
+
+
+
+
+particles = [p1,p2,p3,p4]
+
 
 def no_force(dt,particles):
     pass
@@ -85,11 +90,11 @@ def electromagnetic_field(dt, particles, B=10, mu=0.1):
 
 if experiment == "electro":
 
-    simulation_loop(electromagnetic_field, 0.001, particles)
+    simulation_loop(electromagnetic_field, 0.00001, particles)
 
 elif experiment == "coulomb":
 
-    simulation_loop(coulomb_force, 0.00000005, particles)
+    simulation_loop(coulomb_force, 0.000000001, particles)
 
 else:
     print("Unknown experiment")

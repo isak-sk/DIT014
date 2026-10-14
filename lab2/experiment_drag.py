@@ -13,7 +13,7 @@ for i in range(n):
     theta = i * 2 * math.pi / n
     u = Vec(math.cos(theta), math.sin(theta))
     pos = 10 * u
-    vel = -1000 * u
+    vel = -100 * u
     p = Particle(1, pos, vel, 0.2)
     charge = random.choice([-1, 1])
     p.set_charge(charge)
@@ -41,6 +41,8 @@ def friktion(dt, particles, my=0.509, g=9.82):
     for particle in particles:
         velocity = particle.velocity
         vel_norm = velocity.norm()
+        # Divide by 10 because speed is to fast.
+        vel_norm = vel_norm / 10
         if vel_norm == 0:
             continue
         m = particle.mass

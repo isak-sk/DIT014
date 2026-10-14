@@ -7,7 +7,6 @@ the force is accumalated for all particles and then at the end applied to each p
 The force is a force vector, meaning its the force * the direction
 """
 
-
 from model import *
 from view import *
 import random
@@ -16,10 +15,10 @@ import math
 
 def collision(dt, particles, k):
     for p2 in particles:
-        total_force = Vec(0,0)
+        total_force = Vec(0, 0)
         for p1 in particles:
             if p2 is not p1:
-                distance = (p2.position - p1.position)
+                distance = p2.position - p1.position
 
                 r = distance.norm()
 
@@ -28,9 +27,9 @@ def collision(dt, particles, k):
 
                 if r < (p1.radius + p2.radius):
                     F = k * (p1.radius + p2.radius - r)
-                    direction = (1/r) * distance
+                    direction = (1 / r) * distance
                     force_vector = F * direction
-                    total_force = total_force + force_vector
+                    total_force += force_vector
 
         p2.apply_force(dt, total_force)
 
@@ -38,13 +37,12 @@ def collision(dt, particles, k):
 def collision_wrapper(dt, particles):
     collision(dt, particles, 5)
 
+
 if __name__ == "__main__":
     n = 20
     dt = 0.0005
 
-
     particles = []
-
 
     for i in range(n):
         theta = i * 2 * math.pi / n

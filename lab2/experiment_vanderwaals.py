@@ -16,6 +16,7 @@ velocity          particle's starting speed and direction
 import math
 from model import Particle, Vec
 from view import simulation_loop
+import random
 
 
 def vanderwaals_force(dt, particles, A):
@@ -50,8 +51,11 @@ for i in range(n):
     pos = 6 * u
     vel = Vec(0, 0)
     radius = 0.2 + 0.1 * (i % 4)
+    p = Particle(1, pos, vel, radius)
+    charge = random.choice([-5, 5])
+    p.set_charge(charge)
 
-    particles.append(Particle(1, pos, vel, radius))
+    particles.append(p)
 
 
 # Apply the force at each simulation step
@@ -63,3 +67,4 @@ def experiment(dt, particles):
 timestep = 0.0005
 
 simulation_loop(experiment, timestep, particles)
+

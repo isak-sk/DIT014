@@ -24,6 +24,18 @@ for i in range(n):
 Antagande att partiklarna rör sig på "golvet" och blir tryckta bortfrån skärmen/golvet med gravitationskraft.
 """
 def friktion(dt, particles, my=0.509, g=9.82):
+    """
+    Calculates and applies friktion on all the particles by a set gravitational force and frictions constant.
+
+    Parameters:
+    dt (float/int): The time timestep (Delta time) over which forces are applied.
+    particles (list): List of the given particle vectors
+    my (float): friction constant, set to 0.509
+    g (float): Gravitational constant, set as 9.82, the standard in Sweden.
+
+    Returns:
+    None: Modifies the particle objects in place
+    """
     for particle in particles:
         velocity = particle.velocity
         vel_norm = velocity.norm()
@@ -43,6 +55,18 @@ def friktion(dt, particles, my=0.509, g=9.82):
 
 
 def drag(dt, particles, p=1.225, cd=0.47):
+    """
+    Calculates and applies drag on all the particles by a set mass density and drag constant.
+
+    Parameters:
+    dt (float/int): The timestep (Delta time) over which forces are applied.
+    particles (list): List of the given particle vectors
+    p (float): The Mass density, set to 1.225 for the density of air
+    cd (float): The drag coefficient, set to 0.47.
+
+    Returns:
+    None: Modifies the particle objekts in place
+    """
     for particle in particles:
         area = particle.radius ** 2 * math.pi
         vel_norm = particle.velocity.norm()

@@ -41,3 +41,12 @@ def friktion(dt, particles, my_rörelse=0.509, g=9.82):
         friktion_force = Vec(force_x, force_y)
         particle.apply_force(dt, friktion_force)
 
+
+
+def drag(dt, particles, p=1.225, cd=0.47):
+    for particle in particles:
+        area = particle.radiuse2 * math.pi
+        force = (1/2) * area * p * cd * particle.velocity.norm
+        if force == 0:
+            continue
+        

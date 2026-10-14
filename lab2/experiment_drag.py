@@ -7,15 +7,15 @@ import sys
 #experiment = sys.argv[1]
 
 
-n = 20
+n = 10
 particles = []
 for i in range(n):
     theta = i * 2 * math.pi / n
     u = Vec(math.cos(theta),math.sin(theta))
     pos = 10 * u
-    vel = -10 * u
+    vel = -100 * u
     p = Particle(1 , pos , vel ,0.2)
-    charge = random.choice([-5,5])
+    charge = random.choice([-1,1])
     p.set_charge(charge)
     particles.append(p)
 
@@ -45,8 +45,16 @@ def friktion(dt, particles, my_rörelse=0.509, g=9.82):
 
 def drag(dt, particles, p=1.225, cd=0.47):
     for particle in particles:
-        area = particle.radiuse2 * math.pi
-        force = (1/2) * area * p * cd * particle.velocity.norm
-        if force == 0:
+        area = particle.radius ** 2 * math.pi
+        vel_norm = particle.velocity.norm()
+        if vel_norm == 0:
             continue
-        
+        force = (1/2) * area * p * cd * (vel_norm ** 2)
+        force_x = -force* (particle.velocity.x/vel_norm)
+        force_y = -force* (particle.velocity.y/vel_norm)
+        drag_force = Vec(force_x, force_y)
+        particle.apply_force(dt, drag_force)
+
+
+
+simulation_loop(friktion, 0.000005, particles)

@@ -4,6 +4,8 @@ import random
 import sys
 
 
+#experiment = sys.argv[1]
+
 
 n = 20
 particles = []
@@ -21,12 +23,13 @@ for i in range(n):
 """
 Antagande att partiklarna rör sig på "golvet" och blir tryckta bortfrån skärmen/golvet med gravitationskraft.
 """
-def friktion(dt, particles, my=0.509, g=9.82):
+def friktion(dt, particles, my_rörelse=0.509, g=9.82):
     for particle in particles:
         velocity = particle.velocity
         vel_norm = velocity.norm()
+        my = my_rörelse
         if vel_norm == 0:
-            continue 
+            continue
         m = particle.mass
         normal_force = m * g
         friktion = normal_force * my
@@ -38,5 +41,3 @@ def friktion(dt, particles, my=0.509, g=9.82):
         friktion_force = Vec(force_x, force_y)
         particle.apply_force(dt, friktion_force)
 
-
-simulation_loop(friktion, 0.001, particles)

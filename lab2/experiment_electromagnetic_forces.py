@@ -42,7 +42,7 @@ def coulomb_force(dt, particles, k=(8.99*(10**9))):
     k (float): Coulomb's constant, set to 8.99*(10**9)
 
     Returns:
-    None: Modifies the particle objekts in place
+    None: Modifies the particle objects in place
     """
     for particle in particles:
         for other_particle in particles:
@@ -75,7 +75,7 @@ def electromagnetic_field(dt, particles, B=10, mu=0.1):
     mu(float/int): magnetic permability or scaling factor, set to 0.1
 
     Returns:
-    None: Modifies the particle objekts in place
+    None: Modifies the particle objects in place
 
     """
     for particle in particles:

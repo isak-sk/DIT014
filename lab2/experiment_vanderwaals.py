@@ -41,21 +41,25 @@ def vanderwaals_force(dt, particles, A):
         p2.apply_force(dt, total_force)
 
 
-# Creates particles
-n = 16
-particles = []
 
-for i in range(n):
-    theta = i * 2 * math.pi / n
-    u = Vec(math.cos(theta), math.sin(theta))
-    pos = 6 * u
-    vel = Vec(0, 0)
-    radius = 0.2 + 0.1 * (i % 4)
-    p = Particle(1, pos, vel, radius)
-    charge = random.choice([-5, 5])
-    p.set_charge(charge)
+p1 = Particle(1, Vec(-5, 5), Vec(1, -1), 0.5)
+p1.set_charge(5)
 
-    particles.append(p)
+p2 = Particle(1, Vec(-5, -5), Vec(1, 1), 0.5)
+p2.set_charge(-5)
+
+p3 = Particle(1, Vec(5, 5), Vec(-1, -1), 0.5)
+p3.set_charge(5)
+
+p4 = Particle(1, Vec(5, -5), Vec(-1,1),0.5)
+p4.set_charge(-5)
+
+
+
+
+particles = [p1,p2,p3,p4]
+
+
 
 
 # Apply the force at each simulation step
@@ -64,7 +68,7 @@ def experiment(dt, particles):
 
 
 # Change this value to compare different time steps
-timestep = 0.0005
+timestep = 0.00001
 
 simulation_loop(experiment, timestep, particles)
 

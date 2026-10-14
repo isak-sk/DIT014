@@ -10,7 +10,8 @@ experiment = sys.argv[1]
 
 
 
-p1 = Particle(1, Vec(5, -5), Vec(-5, 5), 0.5)
+
+p1 = Particle(1, Vec(-5, 5), Vec(5, -5), 0.5)
 p1.set_charge(5)
 
 p2 = Particle(1, Vec(-5, -5), Vec(5, 5), 0.5)
@@ -90,7 +91,7 @@ def electromagnetic_field(dt, particles, B=10, mu=0.1):
 
 if experiment == "electro":
 
-    simulation_loop(electromagnetic_field, 0.00001, particles)
+    simulation_loop(electromagnetic_field, 0.00005, particles)
 
 elif experiment == "coulomb":
 

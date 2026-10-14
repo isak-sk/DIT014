@@ -54,6 +54,8 @@ def friktion(dt, particles, my=0.509, g=9.82):
     for particle in particles:
         velocity = particle.velocity
         vel_norm = velocity.norm()
+        # Divide by 10 because speed is to fast.
+        vel_norm = vel_norm / 10
         if vel_norm == 0:
             continue
         m = particle.mass

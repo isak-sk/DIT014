@@ -3,8 +3,8 @@
 # The combination of the gravitational forces pulling the lighter particles toward the middle and their starting
 # velocities, will create an orbit.
 
-from model import gravitational_force
-from view import *
+from view import simulation_loop
+from model import Particle, Vec, gravitational_force
 
 
 

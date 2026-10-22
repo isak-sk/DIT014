@@ -9,22 +9,54 @@ Since the force is perpendicular to the velocity, it changes the direction of th
 The observed behavior is expected to follow these physicle principle, although these movements also deppend on the given velocity, 
 the strenght of the forces and the given timesteps.
 
+---------
+
+Discussion: Effect of the timestep:
+The simulation moves the particles in steps. In each step the force is calculated once and treated as a constant
+for the whole time of dt.
+
+The smaller dt is, the closer this is to real "motion". The cost is that more steps are needed to simulate the same
+amount of time.
+
+Coloumb experiment:
+If dt is too large, the change in velocity in a single step becomes as large as the velocity itself.
+When 2 differently charged particles pass close to eachother, they get a huge impulse that is applied for too long.
+They fly apart faster than they came in, which breaks the expected behaviour.
+
+The r < 4 in the function softens this by capping the force at shorter distances.
+But it doesnt remove the whole problem. A smaller dt gives more accurate moves, but each frame
+covers less time, so the motion looks slower.
+
+
+
+Electromagnetic experiment:
+Theoretically, the magnetic force is perpendicular to the velocity.
+Meaning it only changes direction and the particles should move in perfect circles at constant speed.
+In our simulation, each step adds a small sideways kick to the velocity, and because that kick is perpendicular,
+the speed increases a bit each step. With a large dt this adds up and the particles spiral our instead of staying
+on a circle. With a smaller dt the circles are almost perfect, but a full circle takes more time.
+
+
+Conclusion:
+Choosing the right timestep is a tradeoff between accuracy and stability.
+The right value depends on how strong the forces are, which is why these two experiments
+needed very different timesteps.
+
+The expected phyics behaviour is only produces when dt is small enough compared to the strength of the forces.
+
+
 """
 
-
-
-
-
 from view import *
-import math
-import random
 import sys
+from model import coulomb_force, electromagnetic_field, Vec, Particle
 
 
-
-
-experiment = sys.argv[1]
-
+try:
+    experiment = sys.argv[1]
+except IndexError:
+    print("Argument not given. Please choose electro or coulomb as first argument")
+    sys.exit()
 
 
 
@@ -41,69 +73,8 @@ p4 = Particle(1, Vec(5, -5), Vec(-5,5),0.5)
 p4.set_charge(-5)
 
 
-
-
 particles = [p1,p2,p3,p4]
 
-
-def no_force(dt,particles):
-    pass
-
-def coulomb_force(dt, particles, k=(8.99*(10**9))):
-    """
-    Calculates and applies the electrostatic Coulumb forces between all the particles.
-
-    Parameters:
-    dt (float/int): The time timestep(Delta time) over which forces are applied.
-    particles (list): List of the given particle vectors
-    k (float): Coulomb's constant, set to 8.99*(10**9)
-
-    Returns:
-    None: Modifies the particle objects in place
-    """
-    for particle in particles:
-        for other_particle in particles:
-            if other_particle != particle:
-                q1 = particle.charge
-                q2 = other_particle.charge
-                lenght = Vec.__sub__(particle.position, other_particle.position)
-                r = lenght.norm()
-                if r == 0:
-                    continue
-                if r < 4:
-                    r = 4
-                normaliserad_form_x = lenght.x / r
-                normaliserad_form_y = lenght.y / r
-                force = ((q1*q2)*k)/(r**2)
-                vec_force_x = normaliserad_form_x * force
-                vec_force_y = normaliserad_form_y * force
-                vec_force = Vec(vec_force_x, vec_force_y)
-                applied_force = particle.apply_force(dt, vec_force)
-
-
-def electromagnetic_field(dt, particles, B=10, mu=0.1):
-    """
-    Calculates and applies the magnetic lorentz force to all moving particels.
-
-    Parameters:
-    dt (float): The timestep(Delta time) over which the force is applied
-    particles(list): list of the given particel vectors
-    B(float/int): Magnetic field strenght, set to 10
-    mu(float/int): magnetic permability or scaling factor, set to 0.1
-
-    Returns:
-    None: Modifies the particle objects in place
-
-    """
-    for particle in particles:
-        v_magnitude = particle.velocity.norm()
-        if v_magnitude == 0:
-            continue
-        force = B * mu * particle.charge * v_magnitude
-        v_dir_x = particle.velocity.x / v_magnitude
-        v_dir_y = particle.velocity.y / v_magnitude
-        perpendicular_force = Vec(-v_dir_y*force, v_dir_x*force)
-        new_force =  particle.apply_force(dt, perpendicular_force)
 
 
 if experiment == "electro":

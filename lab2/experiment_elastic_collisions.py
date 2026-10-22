@@ -7,31 +7,12 @@ the force is accumalated for all particles and then at the end applied to each p
 The force is a force vector, meaning its the force * the direction
 """
 
-from model import *
+from model import collision
 from view import *
 import random
 import math
 
 
-def collision(dt, particles, k = 5):
-    for p2 in particles:
-        total_force = Vec(0, 0)
-        for p1 in particles:
-            if p2 is not p1:
-                distance = p2.position - p1.position
-
-                r = distance.norm()
-
-                if r == 0:
-                    continue
-
-                if r < (p1.radius + p2.radius):
-                    F = k * (p1.radius + p2.radius - r)
-                    direction = (1 / r) * distance
-                    force_vector = F * direction
-                    total_force += force_vector
-
-        p2.apply_force(dt, total_force)
 
 
 

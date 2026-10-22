@@ -6,25 +6,14 @@ Because no other forces are applied (like air resistance), the particle mass doe
 But the previous velocity does.
 """
 
-from model import *
 from view import *
-import math
 import random
+from model import constant_gravitational_field
 
-def constant_gravitational_field(dt: float, particles: list, g=10):
-    "Apply gravitational force on particles"
 
-    #Downward direction vector
-    d = Vec(0,-1)
-
-    #Go through every particle, calculate the gravitational force and apply it with the apply_force() method
-    for p in particles:
-        m = p.mass
-        f = g * m * d
-        p.apply_force(dt,f)
 
 #Creating a list of randomized particles
-amount = random.randint(1,10)
+amount = random.randint(5,10)
 particles = []
 
 for x in range(amount):

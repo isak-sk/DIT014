@@ -37,7 +37,6 @@ particles = [p1,p2,p3,p4]
 
 
 
-# Change this value to compare different time steps
 timestep = 0.00001
 
 simulation_loop(vanderwaals_force, timestep, particles)

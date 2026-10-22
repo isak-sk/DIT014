@@ -7,8 +7,8 @@ a = The point of the wall
 x = The position of the particle
 """
 
-from view import * 
-from model import combined_walls, circular_walls
+from view import simulation_loop
+from model import combined_walls, circular_walls, Vec, Particle
 import math
 import sys
 

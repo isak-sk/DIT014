@@ -47,7 +47,7 @@ The expected phyics behaviour is only produces when dt is small enough compared 
 
 """
 
-from view import *
+from view import simulation_loop
 import sys
 from model import coulomb_force, electromagnetic_field, Vec, Particle
 

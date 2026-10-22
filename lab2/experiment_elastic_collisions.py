@@ -7,8 +7,8 @@ the force is accumalated for all particles and then at the end applied to each p
 The force is a force vector, meaning its the force * the direction
 """
 
-from model import collision
-from view import *
+from model import collision, Vec, Particle
+from view import simulation_loop
 import random
 import math
 

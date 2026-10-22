@@ -6,9 +6,9 @@ Because no other forces are applied (like air resistance), the particle mass doe
 But the previous velocity does.
 """
 
-from view import *
+from view import simulation_loop
 import random
-from model import constant_gravitational_field
+from model import constant_gravitational_field, Particle, Vec
 
 
 

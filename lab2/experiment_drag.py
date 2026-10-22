@@ -6,12 +6,11 @@ the given experiment did what we thought it would. The particels slow down depen
 """
 
 
-from view import *
+from view import simulation_loop
 import math
 import random
 import sys
-from model import friktion
-from model import drag
+from model import friktion, drag, Vec, Particle
 
 
 
